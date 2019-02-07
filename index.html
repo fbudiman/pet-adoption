@@ -11,7 +11,7 @@
 
 	<body>
 		<header class="site-header">
-		  	<h1>Puppy image gallery</h1>
+		  	<h1>Puppy Image Gallery</h1>
 		  	<blockquote class="site-header__quote">
 		    <p>A dog will teach you unconditional love. If you can have that in your life, things won't be too bad.</p>
 		    <cite>&mdash;Robert Wagner</cite>
@@ -25,7 +25,16 @@
 		  	<div class="column"></div>
 		</main>
 
-		<div class="selected"></div>
+		<div 
+		  	id="selected" 
+		  	class="hidden"
+		  	onclick="toggleSelected()"
+		>
+		  	<img 
+		   		src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+		   		onclick="stopProp(event)"
+		  	/>
+		</div>
 
 		<footer class="site-footer">
 		  	<p>Built by a wonderful developer for Asana.</p>
