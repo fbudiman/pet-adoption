@@ -12,10 +12,11 @@ const setColumnIdx = () => {
 }
 
 // function to select/unselect photo
-const toggleSelected = (img=blank) => {
+const toggleSelected = ({ img=blank, name='' }={}) => {
 	$('body').toggleClass('disable-scroll')
 	$('#selected').toggleClass('hidden')
 	$('#selected img').attr('src', img)
+	$('#selected div').text(name)
 }
 
 const stopProp = e => e.stopPropagation()
@@ -29,7 +30,10 @@ $(document).ready(() => {
 		   	$(columns[setColumnIdx()])
 		    	.append(`<div class="container">
 		       		<span class="name">${name}</span>
-		       		<img src=.${image} onclick=toggleSelected(\`.${image}\`) />
+		       		<img 
+		       			src=".${image}" 
+		       			onclick="toggleSelected({ img: \`.${image}\`, name: \`${name}\` })"
+		       		/>
 		     	</div>`)
 		})
 	}

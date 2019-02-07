@@ -110,9 +110,29 @@ a {
 }
 
 #selected > img {
-    height: 50%;
-    /*width: 50%;*/
+    height: 65%;
     z-index: 6;
+    border: 30px solid ghostwhite;
+    border-bottom: 100px solid ghostwhite;
+
+    -webkit-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.6);
+}
+
+#selected > .label {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    font-size: 1.75rem;
+    font-family: monospace;
+    background: var(--color-secondary);
+    color: ghostwhite;
+
+    position: relative;
+    top: -75px;
+    z-index: 7;
 }
 
 /* Media Queries */
