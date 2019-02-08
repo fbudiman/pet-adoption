@@ -3,6 +3,8 @@ const columns = document.getElementsByClassName('column')
 const blank = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
 let columnIdx = -1
 
+const stopProp = e => e.stopPropagation()
+
 // function to loop through (4) columns and repeat
 // ensures each column gets populated evenly
 const setColumnIdx = () => {
@@ -12,45 +14,40 @@ const setColumnIdx = () => {
 }
 
 // function to select/unselect photo
-const toggleSelected = ({ img=blank, name='' }={}) => {
-	$('body').toggleClass('disable-scroll')
-	$('#selected').toggleClass('hidden')
-	$('#selected img').attr('src', img)
-	$('#selected div').text(name)
+const toggleSelected = (img=blank, name='') => {
+	document.querySelector('body').classList.toggle('disable-scroll')
+	document.querySelector('#selected').classList.toggle('hidden')
+	document.querySelector('#selected > img').setAttribute('src', img)
+	document.querySelector('#selected > div').innerHTML = name
 }
 
-const stopProp = e => e.stopPropagation()
+// function to populate image gallery with data
+const appendPuppies = () => {
+	dogs.forEach(({ image, name }) => {
+		let content = document.createElement('div')
+		content.className = 'container'
+		content.innerHTML = `<span class="name">${name}</span>
+	   		<img 
+	   			src=".${image}" 
+	   			onclick="toggleSelected('.${image}', '${name}')"
+	   		/>`
 
-// make sure this runs after all the dependencies are loaded
-$(document).ready(() => {
-
-	// function to populate image gallery with data
-	const appendPuppies = () => {
-		dogs.forEach(({ image, source, name }) => {
-		   	$(columns[setColumnIdx()])
-		    	.append(`<div class="container">
-		       		<span class="name">${name}</span>
-		       		<img 
-		       			src=".${image}" 
-		       			onclick="toggleSelected({ img: \`.${image}\`, name: \`${name}\` })"
-		       		/>
-		     	</div>`)
-		})
-	}
-
-	// simple infinite scroll
-	$(window).scroll(() => {
-	    if ($(window).scrollTop() + $(window).height() > $(document).height() - 50) {
-	        appendPuppies()
-	    }
+		columns[setColumnIdx()].appendChild(content)
 	})
+}
 
-	// initialize the first set of data to ensure scroll bar
-	const initialize = () => {
-	 	for (let i = 0; i < 3; i++) {
-	  		appendPuppies()
-	 	}
+// simple infinite scroll
+window.onscroll = () => {
+	if (window.innerHeight + window.pageYOffset > document.body.offsetHeight - 50) {
+		appendPuppies()
 	}
+}
 
-	initialize()
-})
+// initialize the first set of data to ensure scroll bar
+const initialize = () => {
+ 	for (let i = 0; i < 3; i++) {
+  		appendPuppies()
+ 	}
+}
+
+initialize()
